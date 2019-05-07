@@ -1,6 +1,3 @@
-package Chess_3D;
-
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
