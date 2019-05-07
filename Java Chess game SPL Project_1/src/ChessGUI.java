@@ -5,10 +5,9 @@ import java.io.File;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import java.net.URL;
 import javax.imageio.ImageIO;
 
-public class ChessGUI {
+public class ChessGUI  implements ActionListener{
 
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     private JButton[][] chessBoardSquares = new JButton[8][8];
@@ -18,11 +17,19 @@ public class ChessGUI {
             "Java Chess Game is ready to play!");
     private static final String COLS = "ABCDEFGH";
     public static final int QUEEN = 0, KING = 1,
-            ROOK = 2, KNIGHT = 3, BISHOP = 4, PAWN = 5;
-    public static final int[] STARTING_ROW = {
-        ROOK, KNIGHT, BISHOP, KING, QUEEN, BISHOP, KNIGHT, ROOK
-    };
+            ROOK = 2, KNIGHT = 3, BISHOP = 4, PAWN = 5, BLANK = -1;
+    
     public static final int BLACK = 0, WHITE = 1;
+    public int currentMove;
+    
+    private int[][] chessBoardConfig;
+    private int[][] colorInfo;
+    
+    private int chessBoardHeight = 8;
+    private int chessBoardWidth = 8;
+    
+    private int x;
+    private int y;
 
     ChessGUI() {
         initializeGui();
@@ -38,7 +45,8 @@ public class ChessGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                setupNewGame();
+            	initializeBoard();
+                drawBoard(currentMove);
             }
         };
         tools.add(newGameAction);
@@ -104,10 +112,12 @@ public class ChessGUI {
                 } else {
                     b.setBackground(Color.BLACK);
                 }
+                b.putClientProperty("first", ii);
+                b.putClientProperty("second", jj);
+                b.addActionListener(this);
                 chessBoardSquares[jj][ii] = b;
             }
         }
-
        
         chessBoard.add(new JLabel(""));
         // fill the top row
@@ -129,6 +139,31 @@ public class ChessGUI {
             }
         }
     }
+    
+    public final void initializeBoard() {
+    	currentMove = WHITE;
+    	chessBoardConfig = new int[][]{
+        		{ ROOK, KNIGHT, BISHOP, KING, QUEEN, BISHOP, KNIGHT, ROOK},
+        		{ PAWN, PAWN,   PAWN,   PAWN, PAWN,  PAWN,   PAWN,   PAWN},
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK}, 
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
+        		{ PAWN, PAWN,   PAWN,   PAWN, PAWN,  PAWN,   PAWN,   PAWN},
+        		{ ROOK, KNIGHT, BISHOP, QUEEN,KING,  BISHOP, KNIGHT, ROOK}
+        };
+        
+        colorInfo =  new int[][]{
+        		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK},
+        		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK},
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK}, 
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
+        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
+           		{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+        		{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE}
+        };
+    }
 
     public final JComponent getGui() {
         return gui;
@@ -137,7 +172,7 @@ public class ChessGUI {
     private final void createImages() {
         try {
             //URL url = new URL("http://i.stack.imgur.com/memI0.png");
-            File url = new File("G:\\memI0.png");
+            File url = new File("images\\memI0.png");
             BufferedImage bi = ImageIO.read(url);
             for (int ii = 0; ii < 2; ii++) {
                 for (int jj = 0; jj < 6; jj++) {
@@ -154,27 +189,40 @@ public class ChessGUI {
     /**
      * Initializes the icons of the initial chess board piece places
      */
-    private final void setupNewGame() {
-        message.setText("Make your move!");
-        // set up the black pieces
-        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
-            chessBoardSquares[ii][0].setIcon(new ImageIcon(
-                    chessPieceImages[BLACK][STARTING_ROW[ii]]));
-        }
-        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
-            chessBoardSquares[ii][1].setIcon(new ImageIcon(
-                    chessPieceImages[BLACK][PAWN]));
-        }
-        // set up the white pieces
-        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
-            chessBoardSquares[ii][6].setIcon(new ImageIcon(
-                    chessPieceImages[WHITE][PAWN]));
-        }
-        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
-            chessBoardSquares[ii][7].setIcon(new ImageIcon(
-                    chessPieceImages[WHITE][STARTING_ROW[ii]]));
-        }
+    private final void drawBoard(int currentMove) {
+    	String currMove;
+    	if(currentMove == WHITE)
+    		currMove = "WHITE!";
+    	else
+    		currMove = "BLACK";
+        message.setText("Make your move " + currMove);
+//        // set up the black pieces
+//        
+//        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
+//            chessBoardSquares[ii][0].setIcon(new ImageIcon(
+//                    chessPieceImages[BLACK][STARTING_ROW[ii]]));
+//        }
+//        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
+//            chessBoardSquares[ii][1].setIcon(new ImageIcon(
+//                    chessPieceImages[BLACK][PAWN]));
+//        }
+//        // set up the white pieces
+//        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
+//            chessBoardSquares[ii][6].setIcon(new ImageIcon(
+//                    chessPieceImages[WHITE][PAWN]));
+//        }
+//        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
+//            chessBoardSquares[ii][7].setIcon(new ImageIcon(
+//                    chessPieceImages[WHITE][STARTING_ROW[ii]]));
+//        }
+        
+        for(int ii = 0; ii < chessBoardWidth; ii++)
+        	for (int jj = 0; jj < chessBoardHeight; jj++)
+        		if(chessBoardConfig[jj][ii] != BLANK)
+        		chessBoardSquares[ii][jj].setIcon(new ImageIcon(
+        				chessPieceImages[colorInfo[jj][ii]][chessBoardConfig[jj][ii]]));
     }
+
 
     public static void main(String[] args) {
         Runnable r = new Runnable() {
@@ -189,7 +237,7 @@ public class ChessGUI {
                 f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
               
                 f.setLocationByPlatform(true);
-
+                
               
                 f.pack();
                
@@ -200,4 +248,14 @@ public class ChessGUI {
        
         SwingUtilities.invokeLater(r);
     }
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		JButton button = (JButton) arg0.getSource();
+		x = (int) button.getClientProperty("first");
+		y = (int)  button.getClientProperty("second");
+		
+		System.out.println("X = " + x + " Y = " + y );
+		
+	}
 }
