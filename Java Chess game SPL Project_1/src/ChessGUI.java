@@ -225,10 +225,10 @@ public class ChessGUI  implements ActionListener{
 
 
     public static void main(String[] args) {
-        Runnable r = new Runnable() {
-
-            @Override
-            public void run() {
+//        Runnable r = new Runnable() {
+//
+//            @Override
+//            public void run() {
                 ChessGUI cg = new ChessGUI();
 
                 JFrame f = new JFrame("Java Chess Game");
@@ -243,10 +243,10 @@ public class ChessGUI  implements ActionListener{
                
                 f.setMinimumSize(f.getSize());
                 f.setVisible(true);
-            }
-        };
+//            }
+//        };
        
-        SwingUtilities.invokeLater(r);
+//        SwingUtilities.invokeLater(r);
     }
 
 	@Override
@@ -254,8 +254,19 @@ public class ChessGUI  implements ActionListener{
 		JButton button = (JButton) arg0.getSource();
 		x = (int) button.getClientProperty("first");
 		y = (int)  button.getClientProperty("second");
-		
-		System.out.println("X = " + x + " Y = " + y );
-		
+		// TODO:
+		// selected global variable initially false
+		// if selected is false
+		//    store x y in global variable sourceX, sourceY
+		//    set selected to true
+		// if selected is true
+		//    store x y in global variable destX, destY
+		//    find the chesspiece in chessBoardConfig array
+		//    check if the move is valid using class objects
+		//    if valid: 
+		//        call method moveChessPiece(sX, sY, dX, dY) - changes chessBoardConfig + colorInfo
+		//        change currMov
+		//        call method drawBoard()
+		//		  set selected to false
 	}
 }
