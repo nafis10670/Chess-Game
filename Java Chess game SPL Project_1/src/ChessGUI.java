@@ -25,7 +25,7 @@ public class ChessGUI  implements ActionListener{
     public static final int BLACK = 0, WHITE = 1;
     public int currentMove;
     
-    private boolean isSelected = false;
+    private boolean isSelected;
     
     private	int sourceX;
     private int sourceY;
@@ -240,10 +240,39 @@ public class ChessGUI  implements ActionListener{
         				chessPieceImages[colorInfo[jj][ii]][chessBoardConfig[jj][ii]]));
     }
     
+    public boolean CheckPieceValidity() {
+    	boolean valid = false;
+    	
+    	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
+    		valid =  rookObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
+    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
+    		valid =  knightObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
+    	else if(chessBoardConfig[sourceX][sourceY] == BISHOP) {
+    		valid =  bishopObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
+    	else if(chessBoardConfig[sourceX][sourceY] == KING) {
+    		valid =  kingObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
+    	else if(chessBoardConfig[sourceX][sourceY] == QUEEN) {
+    		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
+//    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
+//    		knightObj.isValid(sourceX, sourceY, destX, destY);
+//    	}
+    	
+    	return valid;
+    }
+    
     public void moveChessPiece(int srcX, int srcY, int destX, int destY) {
     	
     }
-
 
     public static void main(String[] args) {
 //        Runnable r = new Runnable() {
@@ -276,17 +305,27 @@ public class ChessGUI  implements ActionListener{
 		x = (int) button.getClientProperty("first");
 		y = (int) button.getClientProperty("second");
 		
+		isSelected = false;
+		
 		System.out.println("X : " + x + " Y : " + y);
 		
-		if(isSelected = false) {
+		if(isSelected == false) {
 			sourceX = x;
 			sourceY = y;
 			isSelected = true;
 		}
 		
-		if(isSelected = true) {
+		if(isSelected == true) {
 			destX = x;
 			destY = y;
+			
+			if(CheckPieceValidity() == true) {
+				
+			}
+			
+			else {
+				System.out.println("Invalid Move!");
+			}
 			
 			
 		}
