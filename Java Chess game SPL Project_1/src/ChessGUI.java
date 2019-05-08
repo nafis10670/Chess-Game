@@ -49,6 +49,7 @@ public class ChessGUI  implements ActionListener{
     
 
     ChessGUI() {
+    	
         initializeGui();
     }
 
@@ -63,7 +64,7 @@ public class ChessGUI  implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
             	initializeBoard();
-                drawBoard(currentMove);
+                drawBoard();
             }
         };
         tools.add(newGameAction);
@@ -206,13 +207,15 @@ public class ChessGUI  implements ActionListener{
     /**
      * Initializes the icons of the initial chess board piece places
      */
-    private final void drawBoard(int currentMove) {
+    private final void drawBoard() {
     	String currMove;
     	if(currentMove == WHITE)
     		currMove = "WHITE!";
     	else
     		currMove = "BLACK";
         message.setText("Make your move " + currMove);
+        ImageIcon icon = new ImageIcon(
+                new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
 //        // set up the black pieces
 //        
 //        for (int ii = 0; ii < STARTING_ROW.length; ii++) {
@@ -233,45 +236,77 @@ public class ChessGUI  implements ActionListener{
 //                    chessPieceImages[WHITE][STARTING_ROW[ii]]));
 //        }
         
-        for(int ii = 0; ii < chessBoardWidth; ii++)
-        	for (int jj = 0; jj < chessBoardHeight; jj++)
-        		if(chessBoardConfig[jj][ii] != BLANK)
-        		chessBoardSquares[ii][jj].setIcon(new ImageIcon(
-        				chessPieceImages[colorInfo[jj][ii]][chessBoardConfig[jj][ii]]));
+//        b.setIcon(icon);
+//        if ((jj % 2 == 1 && ii % 2 == 1)
+//                //) {
+//                || (jj % 2 == 0 && ii % 2 == 0)) {
+//            b.setBackground(Color.WHITE);
+//        } else {
+//            b.setBackground(Color.BLACK);
+//        }
+        
+        for(int ii = 0; ii < chessBoardWidth; ii++) {
+        	for (int jj = 0; jj < chessBoardHeight; jj++) {
+        		if(chessBoardConfig[jj][ii] != BLANK) {
+        			chessBoardSquares[ii][jj].setIcon(new ImageIcon(
+            				chessPieceImages[colorInfo[jj][ii]][chessBoardConfig[jj][ii]]));
+        		}
+        		else {
+        			chessBoardSquares[ii][jj].setIcon(icon);
+        			if ((jj % 2 == 1 && ii % 2 == 1)
+        	                //) {
+        	                || (jj % 2 == 0 && ii % 2 == 0)) {
+        				chessBoardSquares[ii][jj].setBackground(Color.WHITE);
+        	        } else {
+        	        	chessBoardSquares[ii][jj].setBackground(Color.BLACK);
+        	        }
+        		}
+        	}
+        }
+        		
+       isSelected = false;
     }
     
     public boolean CheckPieceValidity() {
     	boolean valid = false;
+    	return true;
     	
-    	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
-    		valid =  rookObj.isValid(sourceX, sourceY, destX, destY);
-    	}
-    	
-    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
-    		valid =  knightObj.isValid(sourceX, sourceY, destX, destY);
-    	}
-    	
-    	else if(chessBoardConfig[sourceX][sourceY] == BISHOP) {
-    		valid =  bishopObj.isValid(sourceX, sourceY, destX, destY);
-    	}
-    	
-    	else if(chessBoardConfig[sourceX][sourceY] == KING) {
-    		valid =  kingObj.isValid(sourceX, sourceY, destX, destY);
-    	}
-    	
-    	else if(chessBoardConfig[sourceX][sourceY] == QUEEN) {
-    		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
-    	}
+//    	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
+//    		valid =  rookObj.isValid(sourceX, sourceY, destX, destY);
+//    	}
+//    	
+//    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
+//    		valid =  knightObj.isValid(sourceX, sourceY, destX, destY);
+//    	}
+//    	
+//    	else if(chessBoardConfig[sourceX][sourceY] == BISHOP) {
+//    		valid =  bishopObj.isValid(sourceX, sourceY, destX, destY);
+//    	}
+//    	
+//    	else if(chessBoardConfig[sourceX][sourceY] == KING) {
+//    		valid =  kingObj.isValid(sourceX, sourceY, destX, destY);
+//    	}
+//    	
+//    	else if(chessBoardConfig[sourceX][sourceY] == QUEEN) {
+//    		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
+//    	}
     	
 //    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
 //    		knightObj.isValid(sourceX, sourceY, destX, destY);
 //    	}
     	
-    	return valid;
+//    	return valid;
     }
     
-    public void moveChessPiece(int srcX, int srcY, int destX, int destY) {
+    public void moveChessPiece() {
+    	chessBoardConfig[destX][destY] = chessBoardConfig[sourceX][sourceY];
+    	colorInfo[destX][destY] = colorInfo[sourceX][sourceY];
     	
+    	chessBoardConfig[sourceX][sourceY] = BLANK;
+    	colorInfo[sourceX][sourceY] = BLANK;
+    	
+    	currentMove = 1 - currentMove;
+    	drawBoard();
     }
 
     public static void main(String[] args) {
@@ -305,7 +340,7 @@ public class ChessGUI  implements ActionListener{
 		x = (int) button.getClientProperty("first");
 		y = (int) button.getClientProperty("second");
 		
-		isSelected = false;
+//		isSelected = false;
 		
 		System.out.println("X : " + x + " Y : " + y);
 		
@@ -315,12 +350,13 @@ public class ChessGUI  implements ActionListener{
 			isSelected = true;
 		}
 		
-		if(isSelected == true) {
+		else if(isSelected == true) {
 			destX = x;
 			destY = y;
-			
+			System.out.print("Selected");
 			if(CheckPieceValidity() == true) {
-				
+				moveChessPiece();
+				isSelected = false;
 			}
 			
 			else {
