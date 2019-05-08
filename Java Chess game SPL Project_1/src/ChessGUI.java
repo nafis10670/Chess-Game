@@ -5,6 +5,9 @@ import java.io.File;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import jChess.*;
+
 import javax.imageio.ImageIO;
 
 public class ChessGUI  implements ActionListener{
@@ -22,6 +25,13 @@ public class ChessGUI  implements ActionListener{
     public static final int BLACK = 0, WHITE = 1;
     public int currentMove;
     
+    private boolean isSelected = false;
+    
+    private	int sourceX;
+    private int sourceY;
+    private int destX;
+    private int destY;
+    
     private int[][] chessBoardConfig;
     private int[][] colorInfo;
     
@@ -30,6 +40,13 @@ public class ChessGUI  implements ActionListener{
     
     private int x;
     private int y;
+    
+    Rook rookObj = new Rook();
+    Knight knightObj = new Knight();
+    Bishop bishopObj = new Bishop();
+    Queen queenObj = new Queen();
+    King kingObj = new King();
+    
 
     ChessGUI() {
         initializeGui();
@@ -222,6 +239,10 @@ public class ChessGUI  implements ActionListener{
         		chessBoardSquares[ii][jj].setIcon(new ImageIcon(
         				chessPieceImages[colorInfo[jj][ii]][chessBoardConfig[jj][ii]]));
     }
+    
+    public void moveChessPiece(int srcX, int srcY, int destX, int destY) {
+    	
+    }
 
 
     public static void main(String[] args) {
@@ -253,7 +274,23 @@ public class ChessGUI  implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		JButton button = (JButton) arg0.getSource();
 		x = (int) button.getClientProperty("first");
-		y = (int)  button.getClientProperty("second");
+		y = (int) button.getClientProperty("second");
+		
+		System.out.println("X : " + x + " Y : " + y);
+		
+		if(isSelected = false) {
+			sourceX = x;
+			sourceY = y;
+			isSelected = true;
+		}
+		
+		if(isSelected = true) {
+			destX = x;
+			destY = y;
+			
+			
+		}
+		
 		// TODO:
 		// selected global variable initially false
 		// if selected is false
