@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class testcase {
 	@Test
-	public void testKing1() 
+	public void test1() 
 	{
-		Rook rook = new Rook();
-		assertEquals(false, rook.isValid(0,0, 0, 8));
+		Bishop bishop = new Bishop();
+		assertEquals(true, bishop.isValid(0,0,7,7));
 	}
 }
