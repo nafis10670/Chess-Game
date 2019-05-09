@@ -16,7 +16,7 @@ public class Rook extends Piece{
     public boolean isValid(int fromX, int fromY, int toX, int toY) {
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
-        if(toX == fromX)
+        if(toX == fromX)		//ROOK WORKS!!
             return true;
         if(toY == fromY)
             return true;

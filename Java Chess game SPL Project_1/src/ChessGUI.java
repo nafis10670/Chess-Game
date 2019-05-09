@@ -269,12 +269,13 @@ public class ChessGUI  implements ActionListener{
     
     public boolean CheckPieceValidity() {
     	boolean valid = false;
-    	return true;
+//    	return true;
     	
-//    	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
-//    		valid =  rookObj.isValid(sourceX, sourceY, destX, destY);
-//    	}
-//    	
+    	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
+//    		System.out.printf("\nSOURCEX: %d SOURCEY: %d DESTX: %d DESTY: %d\n", sourceX, sourceY, destX, destY);
+    		valid =  rookObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
 //    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
 //    		valid =  knightObj.isValid(sourceX, sourceY, destX, destY);
 //    	}
@@ -295,7 +296,7 @@ public class ChessGUI  implements ActionListener{
 //    		knightObj.isValid(sourceX, sourceY, destX, destY);
 //    	}
     	
-//    	return valid;
+    	return valid;
     }
     
     public void moveChessPiece() {
@@ -362,7 +363,7 @@ public class ChessGUI  implements ActionListener{
 			else {
 				System.out.println("Invalid Move!");
 			}
-			
+			System.out.printf("\nSOURCEX: %d SOURCEY: %d DESTX: %d DESTY: %d\n", sourceX, sourceY, destX, destY);
 			
 		}
 		

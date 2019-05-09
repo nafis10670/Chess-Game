@@ -16,7 +16,7 @@ public class Bishop extends Piece{
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
 
-        if(toX - fromX == toY - fromY)
+        if(toX - fromX == toY - fromY)		//DOES NOT WORK FOR (5,4,4,5)
             return true;
 
         return false;
