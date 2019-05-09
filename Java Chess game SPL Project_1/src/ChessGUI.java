@@ -288,9 +288,9 @@ public class ChessGUI  implements ActionListener{
 //    		valid =  kingObj.isValid(sourceX, sourceY, destX, destY);
 //    	}
 //    	
-//    	else if(chessBoardConfig[sourceX][sourceY] == QUEEN) {
-//    		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
-//    	}
+    	else if(chessBoardConfig[sourceX][sourceY] == QUEEN) {
+    		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
+    	}
     	
 //    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
 //    		knightObj.isValid(sourceX, sourceY, destX, destY);
