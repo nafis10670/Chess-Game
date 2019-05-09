@@ -9,6 +9,6 @@ public class testcase {
 	public void test1() 
 	{
 		Bishop bishop = new Bishop();
-		assertEquals(true, bishop.isValid(0,0,7,7));
+		assertEquals(true, bishop.isValid(5,6,4,5));
 	}
 }

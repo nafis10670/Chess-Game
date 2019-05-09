@@ -280,9 +280,9 @@ public class ChessGUI  implements ActionListener{
 //    		valid =  knightObj.isValid(sourceX, sourceY, destX, destY);
 //    	}
 //    	
-//    	else if(chessBoardConfig[sourceX][sourceY] == BISHOP) {
-//    		valid =  bishopObj.isValid(sourceX, sourceY, destX, destY);
-//    	}
+    	else if(chessBoardConfig[sourceX][sourceY] == BISHOP) {
+    		valid =  bishopObj.isValid(sourceX, sourceY, destX, destY);
+    	}
 //    	
 //    	else if(chessBoardConfig[sourceX][sourceY] == KING) {
 //    		valid =  kingObj.isValid(sourceX, sourceY, destX, destY);
