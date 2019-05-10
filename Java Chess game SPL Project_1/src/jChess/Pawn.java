@@ -36,6 +36,7 @@ public boolean isValid(int fromX, int fromY, int toX, int toY) {
 	
 	if(super.isValid(fromX, fromY, toX, toY) == false)
         return false;
+
     
     if(toY == fromY && (isInitialPosition(fromX) == true) &&  (Math.abs(MoveX)) <= 2) {
     	return true;
@@ -47,5 +48,4 @@ public boolean isValid(int fromX, int fromY, int toX, int toY) {
 
     return false;
 	}
-	
 }
