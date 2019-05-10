@@ -16,7 +16,7 @@ public class Bishop extends Piece{
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
 
-        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY))	
+        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY))		//BISHOP WORKS!!
             return true;
 
         return false;

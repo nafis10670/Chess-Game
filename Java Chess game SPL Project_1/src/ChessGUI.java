@@ -46,7 +46,7 @@ public class ChessGUI  implements ActionListener{
     Bishop bishopObj = new Bishop();
     Queen queenObj = new Queen();
     King kingObj = new King();
-    Pawn pawnObj = new Pawn();
+//    Pawn pawnObj = new Pawn();
     
 
     ChessGUI() {
@@ -293,12 +293,8 @@ public class ChessGUI  implements ActionListener{
     		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
     	}
     	
-    	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
-    		valid =  pawnObj.isValid(sourceX, sourceY, destX, destY);
-    	}
-    	
-//    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
-//    		knightObj.isValid(sourceX, sourceY, destX, destY);
+//    	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
+//    		valid =  pawnObj.isValid(sourceX, sourceY, destX, destY);
 //    	}
     	
     	return valid;
@@ -348,7 +344,7 @@ public class ChessGUI  implements ActionListener{
 		
 //		isSelected = false;
 		
-		System.out.println("X : " + x + " Y : " + y);
+//		System.out.println("X : " + x + " Y : " + y);
 		
 		if(isSelected == false) {
 			sourceX = x;

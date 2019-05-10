@@ -14,11 +14,13 @@ public class Queen extends Piece{
     public boolean isValid(int fromX, int fromY, int toX, int toY) {
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
-        //diagonal,bishop
-        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY)) //from bishop
+        
+        //diagonal,bishop	
+        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY)) 		//from bishop
             return true;
+        
         //straight,rook
-        if(toX == fromX)
+        if(toX == fromX)			//QUEEN WORKS!!
             return true;
         if(toY == fromY)
             return true;
