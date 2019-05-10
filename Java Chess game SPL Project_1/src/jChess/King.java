@@ -23,11 +23,13 @@ public class King extends Piece{
     public boolean isValid(int fromX, int fromY, int toX, int toY) {
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
+        
         //diagonal,bishop
         int KingMoveX = Math.abs(toX - fromX);
         int KingMoveY = Math.abs(toY - fromY);
         if((Math.abs(toX - fromX) ==Math.abs(toY - fromY))&&(KingMoveX==1)&&(KingMoveY==1)) //from bishop
             return true;
+        
         //straight,rook
         if((toX == fromX)&&(KingMoveY==1))
             return true;
