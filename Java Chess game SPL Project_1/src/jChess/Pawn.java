@@ -32,7 +32,7 @@ public boolean isInitialPosition(int fromX) {
 @Override
 public boolean isValid(int fromX, int fromY, int toX, int toY) {
 	 int MoveX = Math.abs(toX - fromX);
-     int MoveY = Math.abs(toY - fromY);
+//     int MoveY = Math.abs(toY - fromY);
 	
 	if(super.isValid(fromX, fromY, toX, toY) == false)
         return false;
