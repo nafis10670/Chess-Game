@@ -20,6 +20,14 @@ public boolean isInitialPosition(int fromX) {
 	return valid;
 }
 
+public boolean isMovingBackward(int fromX, int toX) {
+	boolean valid = false;
+	
+	
+	
+	return valid;
+}
+
 //public boolean isPieceAvailable(int toX, int toY) {
 //	boolean valid = false;
 //	
