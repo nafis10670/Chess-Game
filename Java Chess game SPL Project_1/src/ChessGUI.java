@@ -46,7 +46,7 @@ public class ChessGUI  implements ActionListener{
     Bishop bishopObj = new Bishop();
     Queen queenObj = new Queen();
     King kingObj = new King();
-//    Pawn pawnObj = new Pawn();
+    Pawn pawnObj = new Pawn();
     
 
     ChessGUI() {
@@ -273,7 +273,6 @@ public class ChessGUI  implements ActionListener{
 //    	return true;
     	
     	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
-//    		System.out.printf("\nSOURCEX: %d SOURCEY: %d DESTX: %d DESTY: %d\n", sourceX, sourceY, destX, destY);
     		valid =  rookObj.isValid(sourceX, sourceY, destX, destY);
     	}
     	
@@ -293,9 +292,19 @@ public class ChessGUI  implements ActionListener{
     		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
     	}
     	
-//    	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
-//    		valid =  pawnObj.isValid(sourceX, sourceY, destX, destY);
-//    	}
+    	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
+    		valid =  pawnObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
+    	return valid;
+    }
+    
+    public boolean isPieceAvailable() {
+    	boolean valid = true;
+    	
+    	if(chessBoardConfig[destX][destY] == BLANK) {
+    		valid = false;
+    	}
     	
     	return valid;
     }
@@ -355,14 +364,14 @@ public class ChessGUI  implements ActionListener{
 		else if(isSelected == true) {
 			destX = x;
 			destY = y;
-			System.out.print("Selected");
+			System.out.println("Selected");
 			if(CheckPieceValidity() == true) {
 				moveChessPiece();
 				isSelected = false;
 			}
 			
 			else {
-				System.out.println("Invalid Move!");
+				message.setText("INVALID MOVE!");
 			}
 			System.out.printf("\nSOURCEX: %d SOURCEY: %d DESTX: %d DESTY: %d\n", sourceX, sourceY, destX, destY);
 			
