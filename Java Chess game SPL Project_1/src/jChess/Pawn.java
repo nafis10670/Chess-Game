@@ -1,7 +1,5 @@
 package jChess;
 
-
-
 public class Pawn extends Piece {
 	
 public Pawn() {
@@ -38,7 +36,8 @@ public boolean isValid(int fromX, int fromY, int toX, int toY) {
         return false;
 
     
-    if(toY == fromY && (isInitialPosition(fromX) == true) &&  (Math.abs(MoveX)) <= 2) {
+    if(toY == fromY && (isInitialPosition(fromX) == true) &&  (Math.abs(MoveX)) <= 2) {			//NEED TO IMPLEMENT ISPIECEAVAILABLE METHOD
+    																							//CANNOT IMPORT CHESSGUI BECAUSE DEFAULT PACKAGE
     	return true;
     }
     
