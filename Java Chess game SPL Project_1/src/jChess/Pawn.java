@@ -28,17 +28,12 @@ public boolean isMovingBackward(int fromX, int toX) {
 	return valid;
 }
 
-//public boolean isPieceAvailable(int toX, int toY) {
-//	boolean valid = false;
-//	
-//	if(toX != BLANK)
-//	return valid;
-//}
+
 
 @Override
 public boolean isValid(int fromX, int fromY, int toX, int toY) {
 	 int MoveX = Math.abs(toX - fromX);
-//     int MoveY = Math.abs(toY - fromY);
+     int MoveY = Math.abs(toY - fromY);
 	
 	if(super.isValid(fromX, fromY, toX, toY) == false)
         return false;
@@ -50,6 +45,10 @@ public boolean isValid(int fromX, int fromY, int toX, int toY) {
     }
     
     else if(toY == fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) <= 1) {
+    	return true;
+    }
+    
+    else if(toY != fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) == 1 && (Math.abs(MoveY)) == 1) {
     	return true;
     }
 
