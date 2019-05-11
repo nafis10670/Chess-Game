@@ -293,7 +293,7 @@ public class ChessGUI  implements ActionListener{
     	}
     	
     	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
-    		valid =  pawnObj.isValid(sourceX, sourceY, destX, destY);
+    		valid =  pawnObj.isValid(chessBoardConfig, colorInfo, sourceX, sourceY, destX, destY);
     	}
     	
     	return valid;

@@ -20,43 +20,48 @@ public boolean isInitialPosition(int fromX) {
 	return valid;
 }
 
-public boolean isMovingBackward(int fromX, int toX) {
+public boolean isMovingBackward(int boardArray[][], int color[][], int fromX, int toX, int fromY, int toY ) {
 	boolean valid = false;
 	
+	if(color[fromX][fromY] == 1 && fromX <= toX) {
+		valid = true;
+	}
 	
+	else if(color[fromX][fromY] == 0 && fromX >= toX) {
+		valid = true;
+	}
 	
 	return valid;
 }
 
-public boolean isPieceAvailable() {
+public boolean isPieceAvailable(int[][] boardArray, int x, int y) {
 	boolean valid = true;
 	
-	if(chessBoardConfig[destX][destY] == BLANK) {
+	if(boardArray[x][y] == -1) {
 		valid = false;
 	}
 	
 	return valid;
 }
 
-@Override
-public boolean isValid(int fromX, int fromY, int toX, int toY) {
+public boolean isValid(int [][] chessBoardArray, int[][] pieceColor, int fromX, int fromY, int toX, int toY) {
 	 int MoveX = Math.abs(toX - fromX);
      int MoveY = Math.abs(toY - fromY);
 	
 	if(super.isValid(fromX, fromY, toX, toY) == false)
         return false;
 
+//	if()
     
-    if(toY == fromY && (isInitialPosition(fromX) == true) &&  (Math.abs(MoveX)) <= 2) {			//NEED TO IMPLEMENT ISPIECEAVAILABLE METHOD
-    																							//CANNOT IMPORT CHESSGUI BECAUSE DEFAULT PACKAGE
+    if(toY == fromY && (isInitialPosition(fromX) == true) &&  (Math.abs(MoveX)) <= 2 && (isMovingBackward(chessBoardArray, pieceColor, fromX, toX, fromY, toY) == false)) {
     	return true;
     }
     
-    else if(toY == fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) <= 1) {
+    else if(toY == fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) <= 1 && (isMovingBackward(chessBoardArray, pieceColor, fromX, toX, fromY, toY) == false)) {
     	return true;
     }
     
-    else if(toY != fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) == 1 && (Math.abs(MoveY)) == 1) {
+    else if(toY != fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) == 1 && (Math.abs(MoveY)) == 1 && (isPieceAvailable(chessBoardArray, toX, toY) == true )){
     	return true;
     }
 
