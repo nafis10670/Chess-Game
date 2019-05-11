@@ -28,7 +28,15 @@ public boolean isMovingBackward(int fromX, int toX) {
 	return valid;
 }
 
-
+public boolean isPieceAvailable() {
+	boolean valid = true;
+	
+	if(chessBoardConfig[destX][destY] == BLANK) {
+		valid = false;
+	}
+	
+	return valid;
+}
 
 @Override
 public boolean isValid(int fromX, int fromY, int toX, int toY) {

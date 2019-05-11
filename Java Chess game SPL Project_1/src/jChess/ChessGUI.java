@@ -32,8 +32,8 @@ public class ChessGUI  implements ActionListener{
     private static int destX;
     private static int destY;
     
-    private static int[][] chessBoardConfig;
-    private static int[][] colorInfo;
+    private int[][] chessBoardConfig;
+    private int[][] colorInfo;
     
     private int chessBoardHeight = 8;
     private int chessBoardWidth = 8;
@@ -299,15 +299,6 @@ public class ChessGUI  implements ActionListener{
     	return valid;
     }
     
-    public static boolean isPieceAvailable() {
-    	boolean valid = true;
-    	
-    	if(chessBoardConfig[destX][destY] == BLANK) {
-    		valid = false;
-    	}
-    	
-    	return valid;
-    }
     
     public void moveChessPiece() {
     	chessBoardConfig[destX][destY] = chessBoardConfig[sourceX][sourceY];
