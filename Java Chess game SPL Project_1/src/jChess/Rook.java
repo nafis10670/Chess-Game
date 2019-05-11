@@ -16,10 +16,14 @@ public class Rook extends Piece{
     public boolean isValid(int fromX, int fromY, int toX, int toY) {
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
-        if(toX == fromX)		//ROOK WORKS!!
+        if(toX == fromX)
             return true;
         if(toY == fromY)
             return true;
         return false;
+    }
+    
+    public boolean ValidPath() {
+    	
     }
 }

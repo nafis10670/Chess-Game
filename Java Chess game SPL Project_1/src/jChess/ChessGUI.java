@@ -268,7 +268,7 @@ public class ChessGUI  implements ActionListener{
        isSelected = false;
     }
     
-    public boolean CheckPieceValidity() {
+    public boolean CheckMoveValidity() {
     	boolean valid = false;
 //    	return true;
     	
@@ -295,6 +295,12 @@ public class ChessGUI  implements ActionListener{
     	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
     		valid =  pawnObj.isValid(chessBoardConfig, colorInfo, sourceX, sourceY, destX, destY);
     	}
+    	
+    	return valid;
+    }
+    
+    public boolean CheckPathValidity() {
+    	boolean valid = false;
     	
     	return valid;
     }
@@ -356,7 +362,7 @@ public class ChessGUI  implements ActionListener{
 			destX = x;
 			destY = y;
 			System.out.println("Selected");
-			if(CheckPieceValidity() == true) {
+			if(CheckMoveValidity() == true) {
 				moveChessPiece();
 				isSelected = false;
 			}
