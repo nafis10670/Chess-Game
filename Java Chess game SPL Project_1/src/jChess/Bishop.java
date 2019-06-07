@@ -11,12 +11,11 @@ public class Bishop extends Piece{
 		
 	}
 
-	@Override
-    public boolean isValid(int fromX, int fromY, int toX, int toY) {
+    public boolean isValid(int[][] pieceColor, int fromX, int fromY, int toX, int toY) {
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
 
-        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY))		//BISHOP WORKS!!
+        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY) && pieceColor[fromX][fromY] != pieceColor[toX][toY] )		//BISHOP WORKS!!
             return true;
 
         return false;

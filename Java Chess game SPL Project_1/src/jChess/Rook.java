@@ -22,8 +22,4 @@ public class Rook extends Piece{
             return true;
         return false;
     }
-    
-    public boolean ValidPath() {
-    	
-    }
 }

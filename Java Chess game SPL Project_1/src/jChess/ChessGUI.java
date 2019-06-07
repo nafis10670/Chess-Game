@@ -281,7 +281,7 @@ public class ChessGUI  implements ActionListener{
 //    	}
 //    	
     	else if(chessBoardConfig[sourceX][sourceY] == BISHOP) {
-    		valid =  bishopObj.isValid(sourceX, sourceY, destX, destY);
+    		valid =  bishopObj.isValid(colorInfo, sourceX, sourceY, destX, destY);
     	}
     	
     	else if(chessBoardConfig[sourceX][sourceY] == KING) {
@@ -299,11 +299,11 @@ public class ChessGUI  implements ActionListener{
     	return valid;
     }
     
-    public boolean CheckPathValidity() {
-    	boolean valid = false;
-    	
-    	return valid;
-    }
+//    public boolean CheckPathValidity() {
+//    	boolean valid = false;
+//    	
+//    	return valid;
+//    }
     
     
     public void moveChessPiece() {
