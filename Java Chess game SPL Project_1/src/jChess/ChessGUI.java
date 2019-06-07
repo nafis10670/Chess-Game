@@ -273,27 +273,32 @@ public class ChessGUI  implements ActionListener{
 //    	return true;
     	
     	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
-    		valid =  rookObj.isValid(sourceX, sourceY, destX, destY);
+    		valid =  rookObj.isValid(colorInfo, sourceX, sourceY, destX, destY);
     	}
     	
-//    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
-//    		valid =  knightObj.isValid(sourceX, sourceY, destX, destY);
-//    	}
-//    	
+    	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
+    		valid =  knightObj.isValid(sourceX, sourceY, destX, destY);
+    	}
+    	
     	else if(chessBoardConfig[sourceX][sourceY] == BISHOP) {
     		valid =  bishopObj.isValid(colorInfo, sourceX, sourceY, destX, destY);
     	}
     	
     	else if(chessBoardConfig[sourceX][sourceY] == KING) {
-    		valid =  kingObj.isValid(sourceX, sourceY, destX, destY);
+    		valid =  kingObj.isValid(colorInfo, sourceX, sourceY, destX, destY);
     	}
     	
     	else if(chessBoardConfig[sourceX][sourceY] == QUEEN) {
-    		valid =  queenObj.isValid(sourceX, sourceY, destX, destY);
+    		valid =  queenObj.isValid(colorInfo, sourceX, sourceY, destX, destY);
     	}
     	
     	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
     		valid =  pawnObj.isValid(chessBoardConfig, colorInfo, sourceX, sourceY, destX, destY);
+    	}
+    	
+    	else if(chessBoardConfig[sourceX][sourceY] == BLANK) {
+    		valid = false;
+    		message.setText("NO PIECE SELECTED. PLEASE SELECT A PIECE!");
     	}
     	
     	return valid;

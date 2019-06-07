@@ -53,15 +53,15 @@ public boolean isValid(int [][] chessBoardArray, int[][] pieceColor, int fromX, 
 
 //	if()
     
-    if(toY == fromY && (isInitialPosition(fromX) == true) &&  (Math.abs(MoveX)) <= 2 && (isMovingBackward(chessBoardArray, pieceColor, fromX, toX, fromY, toY) == false)) {
+    if(toY == fromY && (isInitialPosition(fromX) == true) &&  (Math.abs(MoveX)) <= 2 && (isMovingBackward(chessBoardArray, pieceColor, fromX, toX, fromY, toY) == false) && pieceColor[fromX][fromY] != pieceColor[toX][toY]) {
     	return true;
     }
     
-    else if(toY == fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) <= 1 && (isMovingBackward(chessBoardArray, pieceColor, fromX, toX, fromY, toY) == false)) {
+    else if(toY == fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) <= 1 && (isMovingBackward(chessBoardArray, pieceColor, fromX, toX, fromY, toY) == false) && pieceColor[fromX][fromY] != pieceColor[toX][toY]) {
     	return true;
     }
     
-    else if(toY != fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) == 1 && (Math.abs(MoveY)) == 1 && (isPieceAvailable(chessBoardArray, toX, toY) == true )){
+    else if(toY != fromY && (isInitialPosition(fromX) == false) &&  (Math.abs(MoveX)) == 1 && (Math.abs(MoveY)) == 1 && (isPieceAvailable(chessBoardArray, toX, toY) == true ) && pieceColor[fromX][fromY] != pieceColor[toX][toY]){
     	return true;
     }
 

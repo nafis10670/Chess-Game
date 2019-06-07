@@ -11,14 +11,12 @@ public class Rook extends Piece{
 		
 	}
 
-
-    @Override
-    public boolean isValid(int fromX, int fromY, int toX, int toY) {
+    public boolean isValid(int[][] pieceColor, int fromX, int fromY, int toX, int toY) {
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
-        if(toX == fromX)
+        if(toX == fromX && pieceColor[fromX][fromY] != pieceColor[toX][toY])
             return true;
-        if(toY == fromY)
+        if(toY == fromY && pieceColor[fromX][fromY] != pieceColor[toX][toY])
             return true;
         return false;
     }

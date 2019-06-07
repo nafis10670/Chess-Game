@@ -6,23 +6,22 @@ public class Queen extends Piece{
 //        super(available, x, y);
 //    }
 	
-	public Queen() {
-		
-	}
+//	public Queen() {
+//		
+//	}
 
-    @Override
-    public boolean isValid(int fromX, int fromY, int toX, int toY) {
+    public boolean isValid(int[][] pieceColor, int fromX, int fromY, int toX, int toY) {
         if(super.isValid(fromX, fromY, toX, toY) == false)
             return false;
         
         //diagonal,bishop	
-        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY)) 		//from bishop
+        if(Math.abs(toX - fromX) ==Math.abs(toY - fromY) && pieceColor[fromX][fromY] != pieceColor[toX][toY]) 		//from bishop
             return true;
         
         //straight,rook
-        if(toX == fromX)			//QUEEN WORKS!!
+        if(toX == fromX && pieceColor[fromX][fromY] != pieceColor[toX][toY])			//QUEEN WORKS!!
             return true;
-        if(toY == fromY)
+        if(toY == fromY && pieceColor[fromX][fromY] != pieceColor[toX][toY])
             return true;
 
         return false;
