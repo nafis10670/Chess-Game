@@ -175,10 +175,10 @@ public class ChessGUI  implements ActionListener{
         colorInfo =  new int[][]{
         		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK},
         		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK},
-        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK}, 
-        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
-        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
-        		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
+        		{ BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK}, 
+        		{ BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK},
+        		{ BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK},
+        		{ BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK},
            		{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
         		{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE}
         };
@@ -273,7 +273,7 @@ public class ChessGUI  implements ActionListener{
 //    	return true;
     	
     	if(chessBoardConfig[sourceX][sourceY] == ROOK) {
-    		valid =  rookObj.isValid(colorInfo, sourceX, sourceY, destX, destY);
+    		valid =  rookObj.isValid(chessBoardConfig, colorInfo, sourceX, sourceY, destX, destY);
     	}
     	
     	else if(chessBoardConfig[sourceX][sourceY] == KNIGHT) {
@@ -294,11 +294,6 @@ public class ChessGUI  implements ActionListener{
     	
     	else if(chessBoardConfig[sourceX][sourceY] == PAWN) {
     		valid =  pawnObj.isValid(chessBoardConfig, colorInfo, sourceX, sourceY, destX, destY);
-    	}
-    	
-    	else if(chessBoardConfig[sourceX][sourceY] == BLANK) {
-    		valid = false;
-    		message.setText("NO PIECE SELECTED. PLEASE SELECT A PIECE!");
     	}
     	
     	return valid;
