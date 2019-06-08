@@ -4,12 +4,14 @@ public class Rook extends Piece{
 
 	public boolean isPathValid(int[][] chessBoardArray, int fromX, int fromY, int toX, int toY) {
 		boolean valid = false;
+		int diffX = Math.abs(fromX - toX);
+		int diffY = Math.abs(fromY - toY);
 		
 		if(fromY == toY) {
 			
-			if(fromX > toX) {
+			if(fromX > toX && diffX >= 2) {
 				
-				for(int i=(fromX-1); i>=toX+1; i--) {
+				for(int i=(fromX-1); i>toX; i--) {
 					
 					if(chessBoardArray[i][toY] == -1) {
 						valid = true;
@@ -22,9 +24,10 @@ public class Rook extends Piece{
 				}
 			}
 			
-			if(fromX < toX) {
+			else if(fromX < toX && diffX >= 2) {
 				
-				for(int i=(fromX+1); i<=toX-1; i++) {
+				for(int i=(fromX+1); i<toX; i++) {
+//					System.out.println("HERE");
 					
 					if(chessBoardArray[i][toY] == -1) {
 						valid = true;
@@ -36,41 +39,51 @@ public class Rook extends Piece{
 					}
 				}
 			}
+			
+			else if(diffX == 1) {
+				valid = true;
+			}
 		}
 		
-//		if(fromX == toX) {
-//			
-//			if(fromX > toX) {
-//				
-//				for(int i=(fromX-1); i>=toX; i--) {
-//					
-//					if(chessBoardArray[i][toY] == -1) {
-//						valid = true;
-//					}
-//					
-//					else {
-//						valid = false;
-//						return valid;
-//					}
-//				}
-//			}
-//			
-//			if(fromX < toX) {
-//				
-//				for(int i=(fromX+1); i<=toX; i++) {
-//					
-//					if(chessBoardArray[i][toY] == -1) {
-//						valid = true;
-//					}
-//					
-//					else {
-//						valid = false;
-//						return valid;
-//					}
-//				}
-//			}
-//		}
-//		
+		
+		if(fromX == toX) {
+			
+			if(fromY > toY && diffY >= 2) {
+				
+				for(int i=(fromY-1); i>toY; i--) {
+					
+					if(chessBoardArray[toX][i] == -1) {
+						valid = true;
+					}
+					
+					else {
+						valid = false;
+						return valid;
+					}
+				}
+			}
+			
+			else if(fromY < toY && diffY >= 2) {
+				
+				for(int i=(fromY+1); i<toY; i++) {
+//					System.out.println("HERE");
+					
+					if(chessBoardArray[toX][i] == -1) {
+						valid = true;
+					}
+					
+					else {
+						valid = false;
+						return valid;
+					}
+				}
+			}
+			
+			else if(diffY == 1) {
+				valid = true;
+			}
+		}
+		
 		return valid;
 	}
 
