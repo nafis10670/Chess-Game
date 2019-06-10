@@ -367,12 +367,13 @@ public class ChessGUI  implements ActionListener{
 			System.out.println("Selected");
 			if(CheckPieceValidity() == true) {
 				moveChessPiece();
-				isSelected = false;
-			}
+            }
+
 			
 			else {
 				message.setText("INVALID MOVE!");
-			}
+            }
+            isSelected = false;
 			System.out.printf("\nSOURCEX: %d SOURCEY: %d DESTX: %d DESTY: %d\n", sourceX, sourceY, destX, destY);
 			
 		}
