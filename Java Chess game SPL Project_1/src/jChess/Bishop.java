@@ -20,6 +20,7 @@ public class Bishop extends Piece{
 					}
 					else {
 						valid = false;
+						return valid;
 					}
 				}
 			}
@@ -33,6 +34,7 @@ public class Bishop extends Piece{
 					}
 					else {
 						valid = false;
+						return valid;
 					}
 				}
 			}
@@ -46,6 +48,7 @@ public class Bishop extends Piece{
 					}
 					else {
 						valid = false;
+						return valid;
 					}
 				}
 			}
@@ -59,6 +62,7 @@ public class Bishop extends Piece{
 					}
 					else {
 						valid = false;
+						return valid;
 					}
 				}
 			}
