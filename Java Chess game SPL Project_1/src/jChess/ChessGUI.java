@@ -16,8 +16,7 @@ public class ChessGUI  implements ActionListener{
     private JButton[][] chessBoardSquares = new JButton[8][8];
     private Image[][] chessPieceImages = new Image[2][6];
     private JPanel chessBoard;
-    private final JLabel message = new JLabel(
-            "Java Chess Game is ready to play!");
+    private final JLabel message = new JLabel("Java Chess Game is ready to play!");
     private static final String COLS = "ABCDEFGH";
     public static final int QUEEN = 0, KING = 1,
             ROOK = 2, KNIGHT = 3, BISHOP = 4, PAWN = 5, BLANK = -1;
@@ -31,6 +30,8 @@ public class ChessGUI  implements ActionListener{
     private static int sourceY;
     private static int destX;
     private static int destY;
+    private int kingi = 0;
+    private int kingj = 0;
     
     private int[][] chessBoardConfig;
     private int[][] colorInfo;
@@ -162,7 +163,7 @@ public class ChessGUI  implements ActionListener{
     public final void initializeBoard() {
     	currentMove = WHITE;
     	chessBoardConfig = new int[][]{
-        		{ ROOK, KNIGHT, BISHOP, KING, QUEEN, BISHOP, KNIGHT, ROOK},
+        		{ ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KNIGHT, ROOK},
         		{ PAWN, PAWN,   PAWN,   PAWN, PAWN,  PAWN,   PAWN,   PAWN},
         		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK}, 
         		{ BLANK,BLANK,  BLANK,  BLANK,BLANK, BLANK,  BLANK,  BLANK},
@@ -190,13 +191,11 @@ public class ChessGUI  implements ActionListener{
 
     private final void createImages() {
         try {
-            //URL url = new URL("http://i.stack.imgur.com/memI0.png");
             File url = new File("images\\memI0.png");
             BufferedImage bi = ImageIO.read(url);
             for (int ii = 0; ii < 2; ii++) {
                 for (int jj = 0; jj < 6; jj++) {
-                    chessPieceImages[ii][jj] = bi.getSubimage(
-                            jj * 64, ii * 64, 64, 64);
+                    chessPieceImages[ii][jj] = bi.getSubimage(jj * 64, ii * 64, 64, 64);
                 }
             }
         } catch (Exception e) {
@@ -299,22 +298,160 @@ public class ChessGUI  implements ActionListener{
     	return valid;
     }
     
-//    public boolean CheckPathValidity() {
-//    	boolean valid = false;
-//    	
-//    	return valid;
-//    }
-    
     
     public void moveChessPiece() {
-    	chessBoardConfig[destX][destY] = chessBoardConfig[sourceX][sourceY];
-    	colorInfo[destX][destY] = colorInfo[sourceX][sourceY];
     	
-    	chessBoardConfig[sourceX][sourceY] = BLANK;
-    	colorInfo[sourceX][sourceY] = BLANK;
+    	if(colorInfo[sourceX][sourceY] == currentMove) {
+    		
+    		chessBoardConfig[destX][destY] = chessBoardConfig[sourceX][sourceY];
+        	colorInfo[destX][destY] = colorInfo[sourceX][sourceY];
+        	
+        	chessBoardConfig[sourceX][sourceY] = BLANK;
+        	colorInfo[sourceX][sourceY] = BLANK;
+        	
+        	currentMove = 1 - currentMove;						//MOVE CHANGES
+        	drawBoard();
+    	}
     	
-    	currentMove = 1 - currentMove;
-    	drawBoard();
+    	else {
+    		message.setText("WRONG COLORED PIECE SELECTED!");
+    	}
+    	
+    }
+    
+    public void checkKingPosition() {
+    	
+    	for(int i = 0; i < 8; i++) {
+    		
+    		for(int j = 0; j < 8; j++) {
+    			
+    			if(currentMove == WHITE) {
+    				if(chessBoardConfig[i][j] == KING && colorInfo[i][j] == WHITE) {
+    					kingi = i;
+    					kingj = j;
+    				}
+    			}
+    			else {
+    				if(chessBoardConfig[i][j] == KING && colorInfo[i][j] == BLACK) {
+    					kingi = i;
+    					kingj = j;
+    				}
+    			}
+    		}
+    	}
+    	System.out.println("KING i: " + kingi + " j: " + kingj);
+    }
+    
+    
+    
+    public boolean isProtectedByBlack(int X, int Y) {
+    	int i, j;
+    	boolean valid = false;
+    	
+    	for(i=0; i<8; i++) {
+    		for(j=0;j<8;j++) {
+    			
+    			if(chessBoardConfig[i][j] == ROOK) {
+    				valid = rookObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == KNIGHT) {
+    				valid = knightObj.isValid(i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == BISHOP) {
+    				valid = bishopObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == QUEEN) {
+    				valid = queenObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == PAWN) {
+    				valid = pawnObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    		}
+    	}
+    	
+    	return valid;
+    }
+    
+    
+    public boolean isProtectedByWhite(int X, int Y) {
+    	int i, j;
+    	boolean valid = false;
+    	
+    	for(i=0; i<8; i++) {
+    		for(j=0;j<8;j++) {
+    			
+    			if(chessBoardConfig[i][j] == ROOK) {
+    				valid = rookObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == KNIGHT) {
+    				valid = knightObj.isValid(i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == BISHOP) {
+    				valid = bishopObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == QUEEN) {
+    				valid = queenObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    			if(chessBoardConfig[i][j] == PAWN) {
+    				valid = pawnObj.isValid(chessBoardConfig, colorInfo, i, j, X, Y);
+    			}
+    		}
+    	}
+    	
+		return valid;
+    }
+    
+    public boolean isInCheck() {
+    	
+    	boolean valid = true;
+    	
+    	if(currentMove == WHITE) {
+    		checkKingPosition();
+    		if(isProtectedByBlack(kingi, kingj) == true) {
+    			message.setText("CHECK!");
+    			valid = false;
+    			return valid;
+    		}
+    	}
+    	else if(currentMove == BLACK) {
+    		checkKingPosition();
+    		if(isProtectedByWhite(kingi, kingj) == true) {
+    			message.setText("CHECK!");
+    			valid = false;
+    			return valid;
+    		}
+    	}
+    	
+    	return valid;
+    }
+    
+    public boolean isCheckmate() {
+    	
+    	boolean valid = false;
+    	
+    	if(currentMove == WHITE && isInCheck() == true) {
+    		
+    		if(isProtectedByBlack(kingi+1, kingj) == true && isProtectedByBlack(kingi-1, kingj) == true &&
+    				isProtectedByBlack(kingi, kingj+1) == true && isProtectedByBlack(kingi, kingj-1) == true &&
+    				isProtectedByBlack(kingi+1, kingj+1) == true && isProtectedByBlack(kingi-1, kingj-1) == true && 
+    				isProtectedByBlack(kingi+1, kingj-1) == true && isProtectedByBlack(kingi-1, kingj+1) == true) {
+    			
+    			valid = true;
+    		}
+    	}
+    	
+    	else if(currentMove == BLACK && isInCheck() == true) {
+    		
+    		if(isProtectedByWhite(kingi+1, kingj) == true && isProtectedByWhite(kingi-1, kingj) == true && 
+    				isProtectedByWhite(kingi, kingj+1) == true && isProtectedByWhite(kingi, kingj-1) == true && 
+    				isProtectedByWhite(kingi+1, kingj+1) == true && isProtectedByWhite(kingi-1, kingj-1) == true && 
+    				isProtectedByWhite(kingi+1, kingj-1) == true && isProtectedByWhite(kingi-1, kingj+1) == true) {
+    			
+    			valid = true;
+    		}
+    	}
+    	
+    	return valid;
     }
 
     public static void main(String[] args) {
@@ -361,9 +498,10 @@ public class ChessGUI  implements ActionListener{
 		else if(isSelected == true) {
 			destX = x;
 			destY = y;
-			System.out.println("Selected");
+//			System.out.println("Selected");
 			if(CheckMoveValidity() == true) {
 				moveChessPiece();
+				checkKingPosition();
 			}
 			
 			else {
