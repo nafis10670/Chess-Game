@@ -11,13 +11,15 @@ public class Client {
 	private Socket socket;
 	private ChessGUI cg;
 	
-	private String server;
+	private String server, username;
 	private int port;
 	
-	Client(String server, int port, ChessGUI cg){
+	Client(String server, int port, String username, ChessGUI cg){
 		this.server = server;
 		this.port = port;
+		this.username = username;
 		this.cg = cg;
+//		System.out.println("Initializing");
 	}
 	
 	public boolean Start() {
@@ -25,10 +27,11 @@ public class Client {
 			socket = new Socket(server,port); 
 		}catch(Exception e) {
 			System.out.println("Error connecting to server: " + e);
+			return false;
 		}
 		
-//		String msg = "Connection accepted " + socket.getInetAddress() + ":" + socket.getPort();
-//		display(msg);
+		String msg = "Connection accepted " + socket.getInetAddress() + ":" + socket.getPort();
+		System.out.println(msg);
 		
 		try {
 			sInput  = new ObjectInputStream(socket.getInputStream());
@@ -38,11 +41,15 @@ public class Client {
 			return false;
 		}
 		
+//		waitForOtherPlayer();
+		
 		new ListenFromServer().start();
 		
 		try {
-//			sOutput.writeObject(username);
+			sOutput.writeObject(username);
 		}catch(Exception e) {
+			System.out.println("Exception doing login : " + e);
+			disconnect();
 			return false;
 		}
 		
@@ -55,6 +62,7 @@ public class Client {
 		case ChessMessage.BOARD:
 			cg.serverChange(cm.chessBoardArray, cm.pieceColor);
 			cg.drawBoard();
+			cg.currentMove = 1 - cg.currentMove;
 			if(cg.isInCheck() == true) {// && isCheckmate() == false) {
         		cg.message.setText("CHECK!");
         	}
@@ -65,9 +73,10 @@ public class Client {
 		}
 	}
 	
-	public void sendMessage(ChessMessage cm) {
+	public void sendMessage(ChessMessage msg) {
+		
 		try {
-			sOutput.writeObject(cm);
+			sOutput.writeObject(msg);
 		}catch(Exception e) {
 			
 		}
@@ -96,18 +105,15 @@ public class Client {
 	}
 	
 	class ListenFromServer extends Thread{
-		
 		public void run() {
 			while(true) {
 				try {
-					ChessMessage cm = (ChessMessage) sInput.readObject();
-					display(cm);
+					ChessMessage msg = (ChessMessage) sInput.readObject();
+					display(msg);
 				}catch(Exception e) {
-					break;
+					System.out.println("Exception: " + e);
 				}
 			}
 		}
 	}
-	
-	
 }

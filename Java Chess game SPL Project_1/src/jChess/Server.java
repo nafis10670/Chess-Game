@@ -37,24 +37,28 @@ public class Server {
 				ClientThread t = new ClientThread(socket);
 				al.add(t);
 				t.start();
+				if(!al.isEmpty())
+					break;
 			}
+			
+			
 
-			try {
-				serversocket.close();
-				for (int i = 0; i < al.size(); i++) {
-					ClientThread tc = al.get(i);
-					try {
-						tc.sInput.close();
-						tc.sOutput.close();
-						tc.socket.close();
-					} catch (IOException e) {
-
-					}
-				}
-
-			} catch (IOException e) {
-				System.out.println("Exception on new ServerSocket " + e);
-			}
+//			try {
+//				serversocket.close();
+//				for (int i = 0; i < al.size(); i++) {
+//					ClientThread tc = al.get(i);
+//					try {
+//						tc.sInput.close();
+//						tc.sOutput.close();
+//						tc.socket.close();
+//					} catch (IOException e) {
+//
+//					}
+//				}
+//
+//			} catch (IOException e) {
+//				System.out.println("Exception on new ServerSocket " + e);
+//			}
 		} catch (Exception e) {
 
 		}

@@ -16,6 +16,8 @@ public class ChessGUI  implements ActionListener{
     private JButton[][] chessBoardSquares = new JButton[8][8];
     private Image[][] chessPieceImages = new Image[2][6];
     private JPanel chessBoard;
+    private String host = "10.220.50.142";
+    private int port = 1500;
     public final JLabel message = new JLabel("Java Chess Game is ready to play!");
     private static final String COLS = "ABCDEFGH";
     public static final int QUEEN = 0, KING = 1,
@@ -23,7 +25,12 @@ public class ChessGUI  implements ActionListener{
     
     public static final int BLACK = 0, WHITE = 1;
     public int currentMove;
-    public String type;
+    public int type;
+    
+    boolean connected = false;
+    
+//    SingleServer srv;
+    Client clnt;
     
     private boolean isSelected;
     
@@ -53,6 +60,7 @@ public class ChessGUI  implements ActionListener{
     King kingObj = new King();
     Pawn pawnObj = new Pawn();
     
+    
 
     ChessGUI() {
     	
@@ -73,32 +81,23 @@ public class ChessGUI  implements ActionListener{
                 drawBoard();
             }
         };
-        Action multiPlayerAction = new AbstractAction("Multi"){
+        Action multiPlayer = new AbstractAction("Multi") {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		String[] options = {"Create", "Join"};
-        		int op = JOptionPane.showOptionDialog(null, "Do you want to Join or create a session?", "Multiplayer",
-        				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]); 	
-        		
         		initializeBoard();
-            	drawBoard();
-            	
-            	if(op == 0) {
-            		Server srv = new Server(1500, ChessGUI.this);
-            	}
-            	
-            	else if(op == 1) {
-            		Client clnt = new Client("localhost", 1500, ChessGUI.this);
-            	}
+        		drawBoard();
+        		String username = JOptionPane.showInputDialog("Username");
+        		
+        		clnt = new Client(host, port, username, ChessGUI.this);
+        		clnt.Start();
+        		connected = true;
+        		
         	}
-        			// Create a dialogue box showing Create or Join Session.
-        			// Initialize Board, Draw Board
-        			// If Create, Server. Then create server class object.
-        			// If Join, Client. Then create client class object.		
         };
         
+        
         tools.add(newGameAction);
-        tools.add(multiPlayerAction);
+        tools.add(multiPlayer);
         tools.add(new JButton("Save")); 
         tools.add(new JButton("Restore")); 
         tools.addSeparator();
@@ -352,7 +351,7 @@ public class ChessGUI  implements ActionListener{
 //        		System.out.printf("\n");
 //        	}
         	
-        	currentMove = 1 - currentMove;						//MOVE CHANGES
+//        	currentMove = 1 - currentMove;						//MOVE CHANGES
         	drawBoard();
         	
         	if(isInCheck() == true) {// && isCheckmate() == false) {
@@ -548,8 +547,14 @@ public class ChessGUI  implements ActionListener{
 //			System.out.println("Selected");
 			if(CheckMoveValidity() == true) {
 				moveChessPiece();
-				checkKingPosition();
+				ChessMessage msg = new ChessMessage();
+				msg.type = ChessMessage.BOARD;
+				msg.chessBoardArray = chessBoardConfig;
+				msg.pieceColor = colorInfo;
+				clnt.sendMessage(msg);
+//				checkKingPosition();
 				
+//					clnt.sendMessage(getChessBoardConfig(), getColorInfo());
 			}
 			
 			else {
