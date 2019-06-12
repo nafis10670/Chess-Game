@@ -92,7 +92,7 @@ public class Queen extends Piece {
 				for (i = fromX + 1, j = fromY + 1; i < toX && j < toY; i++, j++) {
 
 					if (chessBoardArray[i][j] == -1) {
-						System.out.println("HERE");
+//						System.out.println("HERE");
 						valid = true;
 					} else {
 						valid = false;
